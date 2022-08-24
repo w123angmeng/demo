@@ -82,5 +82,8 @@ module.exports = defineConfig({
         // optimization: {
         //     splitChunks: false
         // },
+        experiments: {
+            topLevelAwait: true, // 此处为新增配置
+        }
     }
 })
