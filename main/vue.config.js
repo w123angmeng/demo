@@ -7,7 +7,7 @@ const resolve = (p) => path.resolve(__dirname, p)
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // const VueLoaderPlugin = require('vue-loader/dist/plugin')
-const { VueLoaderPlugin } = require('vue-loader') 
+// const { VueLoaderPlugin } = require('vue-loader') 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
@@ -70,7 +70,7 @@ module.exports = defineConfig({
             ]
         },
         plugins: [
-            new VueLoaderPlugin(),
+            // new VueLoaderPlugin(),
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, './public/index.html'),
                 filename: 'entry.html'

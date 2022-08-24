@@ -21,6 +21,23 @@ module.exports = defineConfig({
     configureWebpack: {
         mode: "development",
         devtool: 'source-map',
+        entry: {
+            main: './src/main.js'
+        },
+        // cache: {
+        //     type: "memory" // filessystem memory
+        // },
+        resolve: {
+            extensions: [".vue", ".js", "json"],
+            alias: {
+                vue$: "vue/dist/vue.esm.js",
+                "@": resolve("src"),
+                crypto: false,
+                stream: false,
+                assert: false,
+                http: false
+            }
+        },
         output: {
             // library: `${packageName}-[name]`,
             library: 'app2',
