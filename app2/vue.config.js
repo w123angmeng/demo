@@ -2,12 +2,13 @@ const {
     defineConfig
 } = require('@vue/cli-service')
 const packageName = require('./package.json').name;
+// vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 module.exports = defineConfig({
     publicPath: "http://localhost:3002",
     transpileDependencies: true,
-    
     devServer: {
         hot: true,
         host: "localhost",
@@ -19,6 +20,7 @@ module.exports = defineConfig({
     },
     configureWebpack: {
         mode: "development",
+        devtool: 'source-map',
         output: {
             // library: `${packageName}-[name]`,
             library: 'app2',
@@ -41,7 +43,7 @@ module.exports = defineConfig({
             ]
         },
         plugins: [
-            // new VueLoaderPlugin(),
+            new VueLoaderPlugin(),
             // new CleanWebpackPlugin(),
             new ModuleFederationPlugin({
                 name: 'main_app',
