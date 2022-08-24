@@ -25,36 +25,32 @@ module.exports = defineConfig({
         }
     },
     configureWebpack: {
+        // injectClient: false,
         mode: "development",
-        // output: {
-        //     library: `${name}-[name]`,
-        //     libraryTarget: 'umd', // 把微应用打包成 umd 库格式
-        //     // jsonpFunction: `webpackJsonp_${name}`,
-        //     chunkLoadingGlobal: `webpackJsonp_${name}`,
+        output: {
+            library: `${name}-[name]`,
+            libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+            // jsonpFunction: `webpackJsonp_${name}`,
+            chunkLoadingGlobal: `webpackJsonp_${name}`,
+        },
+        entry: {
+            main: './src/main.js'
+        },
+        // cache: {
+        //     type: "memory" // filessystem memory
         // },
-        // // output: {
-        // //     filename: 'bundles.js',
-        // //     path: path.join(process.cwd(), '/dist'),
-        // //     // publicPath: 'http://localhost:3000/'
-        // //   },
-        // entry: {
-        //     main: './src/main.js'
-        // },
-        // // cache: {
-        // //     type: "memory" // filessystem memory
-        // // },
-        // resolve: {
+        resolve: {
             
-        //     extensions: [".vue", ".js", "json"],
-        //     alias: {
-        //         vue$: "vue/dist/vue.esm.js",
-        //         "@": resolve("src"),
-        //         crypto: false,
-        //         stream: false,
-        //         assert: false,
-        //         http: false
-        //     }
-        // },
+            extensions: [".vue", ".js", "json"],
+            alias: {
+                vue$: "vue/dist/vue.esm.js",
+                "@": resolve("src"),
+                crypto: false,
+                stream: false,
+                assert: false,
+                http: false
+            }
+        },
         devtool: 'source-map',
         module: {
             rules: [
@@ -73,7 +69,9 @@ module.exports = defineConfig({
             // new VueLoaderPlugin(),
             new HTMLWebpackPlugin({
                 template: path.resolve(__dirname, './public/index.html'),
-                filename: 'entry.html'
+                filename: 'entry.html',
+                chunks: ['lib_remote','main'],
+                chunksSortMode: "manual"
             }),
             // new CleanWebpackPlugin(),
             // new HtmlWebpackPlugin({
@@ -81,11 +79,14 @@ module.exports = defineConfig({
             //     // templateParameters: {
             //     //     BASE_URL: `./`
             //     // },
-            //     filename: 'entry1.html', // 此处新增
-            //     inject: 'body',
-            //     // chunks: ['lib_remote','qiankunmain', 'outpNurse','main'],
-            //     // chunksSortMode: "manual"
+            //     filename: 'entry2.html', // 此处新增
+            //     inject: 'body', // true | 'head' | 'body' | false  ,注入所有的资源到特定的 template 或者 templateContent 中，如果设置为 true 或者 body，所有的 javascript 资源将被放置到 body 元素的底部，'head' 将放置到 head 元素中
             //     // url: BASE_URL,  //需要这里传参
+            //     // chunksSortMode:'manual',
+            //     // chunksSortMode: 'dependency'
+            //     // chunksSortMode: 'auto'
+            //     chunks: ['lib_remote','app2'],
+            //     chunksSortMode: "manual"
             // }),
             new ModuleFederationPlugin({
                 name: 'main_app',

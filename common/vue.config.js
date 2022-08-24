@@ -17,7 +17,8 @@ module.exports = defineConfig({
     open: true,
     headers: {
         'Access-Control-Allow-Origin': '*'
-    }
+    },
+    // injectClient: false
 },
   configureWebpack: {
     mode: "development",

@@ -6,6 +6,7 @@ const resolve = (p) => path.resolve(__dirname, p)
 const packageName = require('./package.json').name;
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 module.exports = defineConfig({
@@ -18,7 +19,8 @@ module.exports = defineConfig({
         open: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
-        }
+        },
+        // injectClient: false
     },
     configureWebpack: {
         mode: "development",
@@ -64,8 +66,22 @@ module.exports = defineConfig({
         plugins: [
             // new VueLoaderPlugin(),
             // new CleanWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                template: './public/index.html',
+                // templateParameters: {
+                //     BASE_URL: `./`
+                // },
+                filename: 'entry2.html', // 此处新增
+                inject: 'body', // true | 'head' | 'body' | false  ,注入所有的资源到特定的 template 或者 templateContent 中，如果设置为 true 或者 body，所有的 javascript 资源将被放置到 body 元素的底部，'head' 将放置到 head 元素中
+                // url: BASE_URL,  //需要这里传参
+                // chunksSortMode:'manual',
+                // chunksSortMode: 'dependency'
+                // chunksSortMode: 'auto'
+                chunks: ['lib_remote','main'],
+                chunksSortMode: "manual"
+            }),
             new ModuleFederationPlugin({
-                name: 'main_app',
+                name: 'app2_app',
                 filename: 'remoteEntry.js',
                 remotes: {
                     lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
