@@ -1,6 +1,8 @@
 const {
     defineConfig
 } = require('@vue/cli-service')
+const path = require('path')
+const resolve = (p) => path.resolve(__dirname, p)
 const packageName = require('./package.json').name;
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
