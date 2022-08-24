@@ -5,7 +5,7 @@ const packageName = require('./package.json').name;
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 module.exports = defineConfig({
-    mode: "development",
+    
     publicPath: "http://localhost:3001",
     transpileDependencies: true,
     devServer: {
@@ -18,6 +18,7 @@ module.exports = defineConfig({
         }
     },
     configureWebpack: {
+        mode: "development",
         output: {
             // library: `${packageName}-[name]`,
             library: 'app1',
@@ -33,10 +34,10 @@ module.exports = defineConfig({
                     loader: 'babel-loader',
                     exclude: /node_modules/
                 },
-              {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-              }
+            //   {
+            //     test: /\.vue$/,
+            //     loader: 'vue-loader'
+            //   }
             ]
         },
         plugins: [
@@ -56,8 +57,8 @@ module.exports = defineConfig({
                 }
             })
         ],
-        optimization: {
-            splitChunks: false
-        },
+        // optimization: {
+        //     splitChunks: false
+        // },
     }
 })

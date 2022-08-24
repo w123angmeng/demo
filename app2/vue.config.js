@@ -7,7 +7,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 module.exports = defineConfig({
     publicPath: "http://localhost:3002",
     transpileDependencies: true,
-    mode: "development",
+    
     devServer: {
         hot: true,
         host: "localhost",
@@ -18,6 +18,7 @@ module.exports = defineConfig({
         }
     },
     configureWebpack: {
+        mode: "development",
         output: {
             // library: `${packageName}-[name]`,
             library: 'app2',
@@ -33,10 +34,10 @@ module.exports = defineConfig({
                     loader: 'babel-loader',
                     exclude: /node_modules/
                 },
-              {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-              }
+            //   {
+            //     test: /\.vue$/,
+            //     loader: 'vue-loader'
+            //   }
             ]
         },
         plugins: [
@@ -56,8 +57,8 @@ module.exports = defineConfig({
                 }
             })
         ],
-        optimization: {
-            splitChunks: false
-        },
+        // optimization: {
+        //     splitChunks: false
+        // },
     }
 })
