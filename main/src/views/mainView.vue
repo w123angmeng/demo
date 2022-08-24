@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import { start } from 'qiankun';
 export default {
   name: "mainView",
   data(){
@@ -23,6 +24,12 @@ export default {
             visible: false,
             content: "这是父组件-调用公共组件"
         },
+    }
+  },
+  mounted() {
+    if (!window.qiankunStarted) {
+      window.qiankunStarted = true;
+      start();
     }
   },
   components: {

@@ -1,9 +1,11 @@
 const {
     defineConfig
 } = require('@vue/cli-service')
+const path = require('path')
+const resolve = (p) => path.resolve(__dirname, p)
 const packageName = require('./package.json').name;
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 module.exports = defineConfig({
@@ -21,6 +23,23 @@ module.exports = defineConfig({
     configureWebpack: {
         mode: "development",
         devtool: 'source-map',
+        entry: {
+            main: './src/main.js'
+        },
+        // cache: {
+        //     type: "memory" // filessystem memory
+        // },
+        resolve: {
+            extensions: [".vue", ".js", "json"],
+            alias: {
+                vue$: "vue/dist/vue.esm.js",
+                "@": resolve("src"),
+                crypto: false,
+                stream: false,
+                assert: false,
+                http: false
+            }
+        },
         output: {
             // library: `${packageName}-[name]`,
             library: 'app1',
@@ -45,7 +64,7 @@ module.exports = defineConfig({
         plugins: [
             // new CleanWebpackPlugin(),
             // 请确保引入这个插件！
-            new VueLoaderPlugin(),
+            // new VueLoaderPlugin(),
             new ModuleFederationPlugin({
                 name: 'main_app',
                 filename: 'remoteEntry.js',
