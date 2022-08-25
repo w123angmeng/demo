@@ -6,7 +6,7 @@
         <!-- <el-button type="primary" @click="btnClickLink">跳转到门诊护士站</el-button>
         <el-button type="primary" @click="btnClickLink1">首页</el-button> -->
         <!-- 公共组件 -->
-        <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog>
+        <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
     </div>
 
 </template>
@@ -21,7 +21,7 @@
             }
         },
          components: { 
-            CommonDialog: () => import('lib_remote/CommonDialog'),
+            // CommonDialog: () => import('lib_remote/CommonDialog'),
         },
         methods: {
             handleClose(data) {

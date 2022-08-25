@@ -2,7 +2,7 @@
   <div class="about">
     <h1>主应用页面</h1>
     <!-- 公共组件 -->
-    <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog>
+    <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
     }
   },
   components: {
-    CommonDialog: () => import('lib_remote/CommonDialog'),
+    // CommonDialog: () => import('lib_remote/CommonDialog'),
   },
   methods: {
     handleClose(data) {

@@ -11,7 +11,7 @@
         </div>
 
         <!-- 公共组件 -->
-        <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog>
+        <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
     </div>
 </template>
 <script>
@@ -32,9 +32,9 @@ export default {
       start();
     }
   },
-  components: {
-    CommonDialog: () => import('lib_remote/CommonDialog'),
-  },
+//   components: {
+//     CommonDialog: () => import('lib_remote/CommonDialog'),
+//   },
   methods: {
     handleClose(data) {
         console.log("父监听到弹窗关闭", data)

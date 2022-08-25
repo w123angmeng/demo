@@ -20,7 +20,7 @@
       </el-table-column>
     </el-table> -->
     <!-- 公共组件 -->
-    <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog>
+    <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
   </div>
 
 </template>
@@ -70,7 +70,7 @@ export default {
     }
  },
  components: { 
-    CommonDialog: () => import('lib_remote/CommonDialog'),
+    // CommonDialog: () => import('lib_remote/CommonDialog'),
 },
   methods: {
     handleClose(data) {

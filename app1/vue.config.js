@@ -81,19 +81,19 @@ module.exports = defineConfig({
                 chunks: ['lib_remote','main'],
                 chunksSortMode: "manual"
             }),
-            new ModuleFederationPlugin({
-                name: 'app1_app',
-                filename: 'remoteEntry.js',
-                remotes: {
-                    lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
-                },
-                shared: {
-                    vue: {
-                        eager: true,
-                        singleton: true,
-                    }
-                }
-            })
+            // new ModuleFederationPlugin({
+            //     name: 'app1_app',
+            //     filename: 'remoteEntry.js',
+            //     remotes: {
+            //         lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
+            //     },
+            //     shared: {
+            //         vue: {
+            //             eager: true,
+            //             singleton: true,
+            //         }
+            //     }
+            // })
         ],
         // optimization: {
         //     splitChunks: false
