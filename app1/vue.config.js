@@ -5,6 +5,7 @@ const path = require('path')
 const resolve = (p) => path.resolve(__dirname, p)
 const packageName = require('./package.json').name;
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MyPlugin = require('./myPlugin')
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // 引入模块联邦
@@ -55,7 +56,8 @@ module.exports = defineConfig({
                 {
                     test: /\.js$/,
                     loader: 'babel-loader',
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
+                    sideEffects: true // ['./src/bootstrap.js'] //false || []
                 },
             //   {
             //     test: /\.vue$/,
@@ -78,7 +80,7 @@ module.exports = defineConfig({
                 // chunksSortMode:'manual',
                 // chunksSortMode: 'dependency'
                 // chunksSortMode: 'auto'
-                chunks: ['lib_remote','main'],
+                chunks: ['lib_remote','remoteEntry','app1','main'],
                 chunksSortMode: "manual"
             }),
             new ModuleFederationPlugin({
@@ -93,11 +95,16 @@ module.exports = defineConfig({
                         singleton: true,
                     }
                 }
-            })
+            }),
+            new MyPlugin((src => {
+                return !!(src.match(/main\.(.*)\.js$/) || src.match('main.js'));
+            }))
         ],
-        // optimization: {
-        //     splitChunks: false
-        // },
+        optimization: {
+            // splitChunks: false
+            nodeEnv: false,
+            // sideEffects: true,
+        },
         experiments: {
             topLevelAwait: true, // 此处为新增配置
         }

@@ -57,7 +57,8 @@ module.exports = defineConfig({
                 {
                     test: /\.js$/,
                     loader: 'babel-loader',
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
+                    sideEffects: true
                 },
             //   {
             //     test: /\.vue$/,
@@ -102,8 +103,13 @@ module.exports = defineConfig({
                 }
             })
         ],
-        // optimization: {
-        //     splitChunks: false
+        optimization: {
+            // splitChunks: false
+            nodeEnv: false,
+            // sideEffects: true,
+        },
+        // experiments: {
+        //     topLevelAwait: true, // 此处为新增配置
         // },
         experiments: {
             topLevelAwait: true, // 此处为新增配置

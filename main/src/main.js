@@ -12,4 +12,11 @@
 //   store,
 //   render: h => h(App)
 // }).$mount('#app')
-import('./bootstrap')
+// import('./bootstrap')
+
+// await import('./bootstrap')
+// // console.log("a:", a)
+// export {}
+(async () => {
+    await import('./bootstrap')
+  })()
