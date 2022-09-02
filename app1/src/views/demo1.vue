@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <h1>This is app1-demo1{{dialogData.content}}</h1>
+    <el-button type="primary" @click="dialogData.visible = true">弹窗</el-button>
   <!-- <el-table
       :data="tableData"
       style="width: 100%">

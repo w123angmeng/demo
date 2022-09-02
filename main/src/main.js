@@ -17,6 +17,4 @@
 // await import('./bootstrap')
 // // console.log("a:", a)
 // export {}
-(async () => {
-    await import('./bootstrap')
-  })()
+import('./bootstrap')
