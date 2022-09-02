@@ -1,7 +1,12 @@
 // // import('./bootstrap')
-const { bootstrap, mount, unmount } = import('./bootstrap')
-console.log("===bootstrap, mount, unmount:", bootstrap, mount, unmount)
+// const { bootstrap, mount, unmount } = import('./bootstrap')
+// console.log("===bootstrap, mount, unmount:", bootstrap, mount, unmount)
+// eslint-disable-next-line
+import { bootstrap, mount, unmount } from './bootstrap'
+// import bootstrap from './bootstrap';
+// bootstrap();
 export { bootstrap, mount, unmount }
+
 // import './public-path';
 // import Vue from 'vue'
 // import App from './App.vue'

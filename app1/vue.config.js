@@ -59,6 +59,13 @@ module.exports = defineConfig({
                     exclude: /node_modules/,
                     sideEffects: true // ['./src/bootstrap.js'] //false || []
                 },
+                // {
+                //     test: /bootstrap\.js$/,
+                //     loader: 'bundle-loader',
+                //     options: {
+                //       lazy: true,
+                //     },
+                //   },
             //   {
             //     test: /\.vue$/,
             //     loader: 'vue-loader'
@@ -89,12 +96,12 @@ module.exports = defineConfig({
                 remotes: {
                     lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
                 },
-                shared: {
-                    vue: {
-                        eager: true,
-                        singleton: true,
-                    }
-                }
+                // shared: {
+                //     vue: {
+                //         // eager: true,
+                //         singleton: true,
+                //     }
+                // }
             }),
             new MyPlugin((src => {
                 return !!(src.match(/main\.(.*)\.js$/) || src.match('main.js'));

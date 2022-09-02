@@ -57,6 +57,13 @@ module.exports = defineConfig({
                     loader: 'babel-loader',
                     exclude: /node_modules/
                 },
+            //     {
+            //         test: /bootstrap\.js$/,
+            //         loader: 'bundle-loader',
+            //         options: {
+            //           lazy: true,
+            //         },
+            //       },
             //   {
             //     test: /\.vue$/,
             //     loader: 'vue-loader'
@@ -86,12 +93,12 @@ module.exports = defineConfig({
                 remotes: {
                     lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
                 },
-                shared: {
-                    vue: {
-                        eager: true,
-                        singleton: true,
-                    }
-                }
+                // shared: {
+                //     vue: {
+                //         eager: true,
+                //         singleton: true,
+                //     }
+                // }
             })
         ],
         optimization: {
