@@ -77,6 +77,8 @@ module.exports = defineConfig({
         new ModuleFederationPlugin({
             name: 'lib_remote',
             filename: 'remoteEntry.js',
+            // 增加library，一定注意type 是 window
+            library: { type: "window", name: "lib_remote"},
             exposes: {
                 './CommonDialog': './src/components/CommonDialog.vue'
             },
