@@ -8,21 +8,24 @@ import { registerMicroApps} from 'qiankun';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-
+let msg = {
+    store: store,
+    // state: globalShow
+}
 registerMicroApps([
     {
         name: 'app1',
         entry: '//localhost:3001',
         container: '#container',
         activeRule: '/app1',
-        props: {}
+        props: msg
     },
     {
         name: 'app2',
         entry: '//localhost:3002',
         container: '#container',
         activeRule: '/app2',
-        props: {}
+        props: msg
     }
 ]);
 // 启动 qiankun
