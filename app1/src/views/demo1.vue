@@ -2,7 +2,7 @@
     <div class="about">
         <h1>This is app1-demo1{{dialogData.content}}</h1>
         <el-button type="primary" @click="dialogData.visible = true">弹窗</el-button>
-        <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}</div>
+        <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}-{{count}}</div>
         <el-button type="primary" @click="changePatInfo">切换患者信息</el-button>
         <!-- <el-table
       :data="tableData"
@@ -23,20 +23,36 @@
       </el-table-column>
     </el-table> -->
         <!-- 公共组件 -->
-        <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog>
+        <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
     </div>
 
 </template>
 <script>
+    // import {
+    //     mapState,
+    //     mapMutations
+    // } from "vuex";
     import {
-        mapState,
         mapMutations
     } from "vuex";
     export default {
         computed: {
-            ...mapState({
-                patientInfo: state => state.patient.patientInfo
-            }),
+            // ...mapState({
+            //     patientInfo: state => state.patient.patientInfo
+            // }),
+           patientInfo: {
+            get (){
+                console.log("监测到app1变化：", this.$store.state.patient.patientInfo)
+                this.$forceUpdate()
+                return this.$store.state.patient.patientInfo
+            },
+            
+        },
+        count() {
+            console.log("app1 检测到count变化:", this.$store.state.patient.count)
+            this.$forceUpdate()
+            return this.$store.state.patient.count
+            }
         },
         data: () => {
             return {
@@ -45,6 +61,22 @@
                     content: "这是父组件-调用公共组件"
                 },
                 curPatInd: 0,
+                patDictList: [{
+                        name: "app1-张三",
+                        sex: '女',
+                        age: '24岁'
+                    },
+                    {
+                        name: "app1-李四",
+                        sex: '男',
+                        age: '20岁'
+                    },
+                    {
+                        name: "app1-一一",
+                        sex: '女',
+                        age: '7岁'
+                    }
+                ]
                 // input: '123',
                 // options: [{
                 //   value: '选项1',
@@ -83,35 +115,21 @@
             }
         },
         components: {
-            CommonDialog: () => import('lib_remote/CommonDialog'),
+            // CommonDialog: () => import('lib_remote/CommonDialog'),
         },
         methods: {
             ...mapMutations({
                 setPatientInfo: "patient/setPatientInfo",
+                setCount: "patient/setCount"
             }),
             handleClose(data) {
                 console.log("app1 子组件监听到弹窗关闭", data)
             },
             changePatInfo() {
-                let patDictList = [{
-                        name: "app1-张三",
-                        sex: '女',
-                        age: '24岁'
-                    },
-                    {
-                        name: "app1-李四",
-                        sex: '男',
-                        age: '20岁'
-                    },
-                    {
-                        name: "app1-一一",
-                        sex: '女',
-                        age: '7岁'
-                    }
-                ]
-                this.curPatInd = this.curPatInd == (patDictList.length - 1) ? 0 : (this.curPatInd + 1)
-                this.setPatientInfo(patDictList[this.curPatInd])
-
+                this.curPatInd = this.curPatInd == (this.patDictList.length - 1) ? 0 : (this.curPatInd + 1)
+                this.setPatientInfo(this.patDictList[this.curPatInd])
+                this.setCount()
+                this.$forceUpdate()
             },
         }
     };

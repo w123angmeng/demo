@@ -16,7 +16,7 @@ module.exports = defineConfig({
         hot: true,
         host: "localhost",
         port: 3002,
-        open: true,
+        // open: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
@@ -87,20 +87,20 @@ module.exports = defineConfig({
                 chunks: ['lib_remote','remoteEntry','app','main','src_bootstrap_js'],
                 chunksSortMode: "manual"
             }),
-            new ModuleFederationPlugin({
-                name: 'app2_app',
-                filename: 'remoteEntry.js',
-                remotes: {
-                    lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
-                },
-                // shared: ['vue']
-                // shared: {
-                //     vue: {
-                //         eager: true,
-                //         singleton: true,
-                //     }
-                // }
-            })
+            // new ModuleFederationPlugin({
+            //     name: 'app2_app',
+            //     filename: 'remoteEntry.js',
+            //     remotes: {
+            //         lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
+            //     },
+            //     // shared: ['vue']
+            //     // shared: {
+            //     //     vue: {
+            //     //         eager: true,
+            //     //         singleton: true,
+            //     //     }
+            //     // }
+            // })
         ],
         optimization: {
             nodeEnv: false

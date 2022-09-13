@@ -19,8 +19,10 @@ let router = null;
 let instance = null;
 function render(props = {}) {
 //   const { container } = props;
+
   const { container, store } = props;
   Vue.prototype.$store = store;
+  console.log("app2 render:", store)
   router = new VueRouter({
     base: window.__POWERED_BY_QIANKUN__ ? '/app2/' : '/',
     mode: 'history',
