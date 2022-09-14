@@ -16,6 +16,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 import Vuex from 'vuex'
 Vue.use(Vuex);
+import actions from '@/shared/actions'
 
 Vue.config.productionTip = false
 Vue.prototype.microStore = microStore;
@@ -30,6 +31,7 @@ function render(props = {}) {
 //   const { container } = props;
 
   const { container, store } = props;
+  actions.setActions(props)
 //   Vue.prototype.$store = store;
   console.log("app2 render:", store)
   router = new VueRouter({
@@ -56,13 +58,15 @@ if (!window.__POWERED_BY_QIANKUN__) {
   }
   export async function mount(props) {
     console.log('[vue] props from main framework', props);
-    props.onGlobalStateChange((state, prev) => {
-        // state: 变更后的状态; prev 变更前的状态
-        console.log('子组件：', state, prev);
-      });
+    // props.onGlobalStateChange((state, prev) => {
+    //     // state: 变更后的状态; prev 变更前的状态
+    //     console.log('app2 glonal 子组件：', state, prev);
+    //   });
     render(props);
   }
   export async function unmount() {
+    console.log("app2 卸载unmount")
+    // actions.offGlobalStateChange();
     instance.$destroy();
     instance.$el.innerHTML = '';
     instance = null;

@@ -30,16 +30,10 @@ Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
-let globalShow = false
-Vue.prototype.$global = initGlobalState(globalShow)
-Vue.prototype.$global.onGlobalStateChange((state, prev) => {
-    // state: 变更后的状态; prev 变更前的状态
-    console.log('父组件',state, prev);
-  });
-  Vue.prototype.$store = store
+
+//   Vue.prototype.$store = store
 let msg = {
-    store: store,
-    state: globalShow
+    store: store
 }
 registerMicroApps([
     {
@@ -57,6 +51,11 @@ registerMicroApps([
         props: msg
     }
 ]);
+
+const initialState = {global: true};
+const actions = initGlobalState(initialState)
+Vue.prototype.actions = actions
+
 // 启动 qiankun
 // start();
 new Vue({

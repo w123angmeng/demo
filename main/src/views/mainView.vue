@@ -2,7 +2,7 @@
     <div class="mainViewWrap">
         <!-- <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}</div> -->
         <HeaderComp></HeaderComp>
-        <el-button type="primary" @click="changePatInfo">切换患者信息</el-button>
+        <!-- <el-button type="primary" @click="changePatInfo">切换患者信息</el-button> -->
         <el-menu router default-active="/about" class="el-menu-demo" mode="horizontal">
             <!-- <el-menu-item index="/about">主应用页面</el-menu-item> -->
             <el-menu-item index="/app1/demo1">app1</el-menu-item>
@@ -20,7 +20,7 @@
 import { start } from 'qiankun';
 import HeaderComp from "@/views/common/HeaderComp"
 // import {mapState, mapMutations} from "vuex";
-import {mapMutations} from "vuex";
+// import {mapMutations} from "vuex";
 export default {
   name: "mainView",
   data(){
@@ -59,9 +59,13 @@ export default {
     if (!window.qiankunStarted) {
       window.qiankunStarted = true;
       start({
-        sandbox: false
+        // sandbox: false
       });
     }
+    // this.actions.onGlobalStateChange((state, prev) => {
+    //     // state: 变更后的状态; prev 变更前的状态
+    //     console.log('父组件观察到', state.global, prev.global);
+    // });
   },
   computed: {
         // ...mapState({
@@ -81,16 +85,17 @@ export default {
     // CommonDialog: () => import('lib_remote/CommonDialog'),
   },
   methods: {
-    ...mapMutations({
-        setPatientInfo: "patient/setPatientInfo",
-        setCount: "patient/setCount"
-    }),
-    changePatInfo() {
-        this.curPatInd = this.curPatInd == (this.patDictList.length - 1) ? 0 : (this.curPatInd + 1)
-        this.setPatientInfo(this.patDictList[this.curPatInd])
-        this.setCount()
-        this.$forceUpdate()
-    },
+    // ...mapMutations({
+    //     setPatientInfo: "patient/setPatientInfo",
+    //     setCount: "patient/setCount"
+    // }),
+    // changePatInfo() {
+    //     this.curPatInd = this.curPatInd == (this.patDictList.length - 1) ? 0 : (this.curPatInd + 1)
+    //     this.setPatientInfo(this.patDictList[this.curPatInd])
+    //     this.setCount()
+    //     this.$forceUpdate()
+    //     this.actions.setGlobalState({ global: false })
+    // },
     handleClose(data) {
         console.log("父监听到弹窗关闭", data)
     }

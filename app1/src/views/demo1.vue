@@ -32,6 +32,7 @@
     //     mapState,
     //     mapMutations
     // } from "vuex";
+    import actions from "@/shared/actions";
     import {
         mapMutations
     } from "vuex";
@@ -117,6 +118,19 @@
         components: {
             // CommonDialog: () => import('lib_remote/CommonDialog'),
         },
+        mounted(){
+            // console.log("======> app1 mouted")
+            try {   
+      actions.onGlobalStateChange((state, prev) => {
+                // state: 变更后的状态; prev 变更前的状态
+                console.log('app1 glonal 子组件：', state.global, prev.global);
+            });
+    } catch (error) {
+        console.log("app1 global error:", error)
+    }
+
+            
+        },
         methods: {
             ...mapMutations({
                 setPatientInfo: "patient/setPatientInfo",
@@ -130,6 +144,7 @@
                 this.setPatientInfo(this.patDictList[this.curPatInd])
                 this.setCount()
                 this.$forceUpdate()
+                actions.setGlobalState({global: true})
             },
         }
     };
