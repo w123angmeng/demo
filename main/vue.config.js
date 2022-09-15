@@ -10,7 +10,7 @@ const resolve = (p) => path.resolve(__dirname, p)
 // const { VueLoaderPlugin } = require('vue-loader') 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 // 引入模块联邦
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+// const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const { name } = require('./package');
 module.exports = defineConfig({
     transpileDependencies: true,
