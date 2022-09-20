@@ -120,14 +120,14 @@
         },
         mounted(){
             // console.log("======> app1 mouted")
-            try {   
-      actions.onGlobalStateChange((state, prev) => {
-                // state: 变更后的状态; prev 变更前的状态
-                console.log('app1 glonal 子组件：', state.global, prev.global);
-            });
-    } catch (error) {
-        console.log("app1 global error:", error)
-    }
+    //         try {   
+    //   actions.onGlobalStateChange((state, prev) => {
+    //             // state: 变更后的状态; prev 变更前的状态
+    //             console.log('app1 glonal 子组件：', state, prev);
+    //         });
+    // } catch (error) {
+    //     console.log("app1 global error:", error)
+    // }
 
             
         },
@@ -143,8 +143,8 @@
                 this.curPatInd = this.curPatInd == (this.patDictList.length - 1) ? 0 : (this.curPatInd + 1)
                 this.setPatientInfo(this.patDictList[this.curPatInd])
                 this.setCount()
-                this.$forceUpdate()
                 actions.setGlobalState({global: true})
+                // this.$store.commit('patient/setPatientInfo', this.patDictList[this.curPatInd])
             },
         }
     };

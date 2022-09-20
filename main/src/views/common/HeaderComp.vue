@@ -17,7 +17,16 @@
 <script>
 // import { mapMutations, mapGetters } from "vuex";
 // import {mapState} from "vuex";
+// import Vue from 'vue'
 import {mapMutations} from "vuex";
+// import actions from '@/shared/actions'
+
+// import { initGlobalState} from 'qiankun';
+// Vue.use(ElementUI);
+// import './shared/actions'
+// console.log("actions:", actions)
+
+
 export default {
   name: "HeaderComp",
   components: {
@@ -65,10 +74,10 @@ export default {
         console.log("main this:", this)
     },
     mounted() {
-    this.actions.onGlobalStateChange((state, prev) => {
-        // state: 变更后的状态; prev 变更前的状态
-        console.log('父组件观察到', state.global, prev.global);
-    });
+    // actions.onGlobalStateChange((state, prev) => {
+    //     // state: 变更后的状态; prev 变更前的状态
+    //     console.log('父组件观察到', state.global, prev.global);
+    // });
   },
   methods: {
     ...mapMutations({
@@ -80,7 +89,11 @@ export default {
         this.setPatientInfo(this.patDictList[this.curPatInd])
         this.setCount()
         this.$forceUpdate()
-        this.actions.setGlobalState({ global: false })
+        // console.log("this.actions；",actions)
+        this.$actions.setGlobalState({ global: false })
+        // setTimeout(() => {
+        //     actions.setGlobalState({global:false})
+        // }, 3000);
     },
     btnClickBack() {
         this.$router.push({

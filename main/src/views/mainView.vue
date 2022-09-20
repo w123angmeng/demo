@@ -58,9 +58,7 @@ export default {
   mounted() {
     if (!window.qiankunStarted) {
       window.qiankunStarted = true;
-      start({
-        // sandbox: false
-      });
+      start();
     }
     // this.actions.onGlobalStateChange((state, prev) => {
     //     // state: 变更后的状态; prev 变更前的状态

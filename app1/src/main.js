@@ -61,7 +61,7 @@ if (!window.__POWERED_BY_QIANKUN__) {
     console.log('[vue] app1 props from main framework', props);
     props.onGlobalStateChange((state, prev) => {
         // state: 变更后的状态; prev 变更前的状态
-        console.log('app1 glonal 子组件：', state.global, prev.global);
+        console.log('app1 glonal 子组件：', state, prev);
     });
     render(props);
   }
