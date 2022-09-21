@@ -27,6 +27,9 @@ Vue.config.productionTip = false
 //   store,
 //   render: h => h(App)
 // }).$mount('#app')
+Vue.prototype.$testFun = function() {
+    console.log("这是app1 全局方法：$testFun")
+}
 Vue.prototype.microStore = microStore;
 let router = null;
 let instance = null;

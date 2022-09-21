@@ -3,6 +3,7 @@
         <!-- <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}</div> -->
         <HeaderComp></HeaderComp>
         <!-- <el-button type="primary" @click="changePatInfo">切换患者信息</el-button> -->
+        <el-button type="primary" @click="$testFun">调用全局方法</el-button>
         <el-menu router default-active="/about" class="el-menu-demo" mode="horizontal">
             <!-- <el-menu-item index="/about">主应用页面</el-menu-item> -->
             <el-menu-item index="/app1/demo1">app1</el-menu-item>
@@ -58,12 +59,12 @@ export default {
   mounted() {
     if (!window.qiankunStarted) {
       window.qiankunStarted = true;
-      start();
+      start({
+        prefetch: 'all', // 可选，是否开启预加载，默认为 true。
+        sandbox: { strictStyleIsolation: false }, // 可选，是否开启沙箱，默认为 true。// 从而确保微应用的样式不会对全局造成影响。
+        singular: false // 可选，是否为单实例场景，单实例指的是同一时间只会渲染一个微应用。默认为 true
+        })
     }
-    // this.actions.onGlobalStateChange((state, prev) => {
-    //     // state: 变更后的状态; prev 变更前的状态
-    //     console.log('父组件观察到', state.global, prev.global);
-    // });
   },
   computed: {
         // ...mapState({

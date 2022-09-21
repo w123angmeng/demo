@@ -4,6 +4,7 @@
         <el-button type="primary" @click="dialogData.visible = true">弹窗</el-button>
         <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}-{{count}}</div>
         <el-button type="primary" @click="changePatInfo">切换患者信息</el-button>
+        <el-button type="primary" @click="$testFun">调用全局方法</el-button>
         <!-- <el-table
       :data="tableData"
       style="width: 100%">

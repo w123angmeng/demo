@@ -4,18 +4,19 @@ const {
 const path = require('path')
 const resolve = (p) => path.resolve(__dirname, p)
 const webpack = require("webpack");
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // const VueLoaderPlugin = require('vue-loader/dist/plugin')
 // const { VueLoaderPlugin } = require('vue-loader') 
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+// const HTMLWebpackPlugin = require('html-webpack-plugin');
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const { name } = require('./package');
 module.exports = defineConfig({
     transpileDependencies: true,
     // publicPath: "http://localhost:3000",
+    outputDir: 'dist',
     devServer: {
         hot: true,
         host: "localhost",
@@ -27,24 +28,40 @@ module.exports = defineConfig({
     },
     configureWebpack: config=> {
         // injectClient: false,
-        ['vue', 'elementui', 'vendor'].map(item => 
-            config.plugins.push(
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                manifest: require(path.resolve(__dirname, `./public/dll/${item}-manifest.json`))
-              }),
-          )
-        )
-        config.mode= "development"
-        config.output = {
-            library: `${name}-[name]`,
-            libraryTarget: 'umd', // 把微应用打包成 umd 库格式
-            // jsonpFunction: `webpackJsonp_${name}`,
-            chunkLoadingGlobal: `webpackJsonp_${name}`,
-        }
-        config.entry = {
-            main: './src/main.js'
-        }
+        
+        // config.mode= "development"
+        // config.mode ="production"
+        // config.entry = {
+        //     main: './src/main.js'
+        // }
+        // Object.assign(
+        //     config.resolve, {
+        //         extensions: [".vue", ".js", "json"],
+        //         alias: {
+        //             vue$: "vue/dist/vue.esm.js",
+        //             "@": resolve("src"),
+        //             crypto: false,
+        //             stream: false,
+        //             assert: false,
+        //             http: false
+        //         }
+        //     }
+        // )
+        // config.devtool = 'source-map'
+        // config.module.rules.push({
+        //     test: /\.js$/,
+        //     loader: 'babel-loader',
+        //     exclude: /node_modules/,
+        //     sideEffects: true
+        // })
+
+        // config.output = {
+        //     library: `${name}-[name]`,
+        //     libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+        //     // jsonpFunction: `webpackJsonp_${name}`,
+        //     chunkLoadingGlobal: `webpackJsonp_${name}`,
+        // }
+
         
         // cache: {
         //     type: "memory" // filessystem memory
@@ -61,63 +78,61 @@ module.exports = defineConfig({
         //         http: false
         //     }
         // },
-        Object.assign(
-            config.resolve, {
-                extensions: [".vue", ".js", "json"],
-                alias: {
-                    vue$: "vue/dist/vue.esm.js",
-                    "@": resolve("src"),
-                    crypto: false,
-                    stream: false,
-                    assert: false,
-                    http: false
-                }
-            }
-        )
-        config.devtool = 'source-map'
-        config.module.rules = [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                sideEffects: true
-            },
-        //   
-        //     test: /\.vue$/,
-        //     loader: 'vue-loader'
-        //   }
-        ]
-        // module: {
-        //     rules: [
-        //         {
-        //             test: /\.js$/,
-        //             loader: 'babel-loader',
-        //             exclude: /node_modules/,
-        //             sideEffects: true
-        //         },
-        //     //   {
-        //     //     test: /\.vue$/,
-        //     //     loader: 'vue-loader'
-        //     //   }
-        //     ]
-        // },
+        
+        
+        console.log("====type:",  typeof ['vue', 'elementui', 'vendor'])
+        let pArr = ['vue', 'elementui', 'vendor']
+        pArr.map(item => {
+            console.log("item:", item, `/public/dll/${item}-manifest.json`)
+            config.plugins.push(new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require(path.resolve(__dirname, `./public/dll/${item}-manifest.json`))
+            }))
+            // config.plugins.push(new AddAssetHtmlPlugin({
+            //     // 引用的dll.js文件位置
+            //     filepath: path.resolve(__dirname, `./public/dll/js/dll.${item}.js`),
+            //     // dll 引用路径 对dll静态资源引用的位置
+            //     publicPath: './dll/js/',
+            //     // dll最终输出的目录 打包后具体在dist下的文件位置
+            //     outputPath: './dll/js/',
+            //     includeSourcemap: false
+            //   }))
+        })
+        console.log("pArr:", pArr.length,pArr, path.resolve(__dirname, './public/dll/js/*.js'))
         config.plugins.push(
-            // new VueLoaderPlugin(),
             new AddAssetHtmlPlugin({
-                // 引用的dll.js文件位置
-                filepath: path.resolve(__dirname, './public/dll/js/*.js'),
-                // dll 引用路径 对dll静态资源引用的位置
-                publicPath: './dll/js/*.js',
-                // dll最终输出的目录 打包后具体在dist下的文件位置
-                outputPath: './dll/js/*.js',
-                includeSourcemap: false
-              }),
-            new HTMLWebpackPlugin({
-                template: path.resolve(__dirname, './public/index.html'),
-                filename: 'entry.html',
-                chunks: ['lib_remote','main'],
-                chunksSortMode: "manual"
+                 // 引用的dll.js文件位置
+                 filepath: require(path.resolve(__dirname, './public/dll/js/dll.*.js')),
+                 // dll 引用路径 对dll静态资源引用的位置
+                 publicPath: './dll/js/dll.*.js',
+                 // dll最终输出的目录 打包后具体在dist下的文件位置
+                 outputPath: './dll/js/dll.*.js',
+                 includeSourcemap: false
             })
+        )
+        // pArr.forEach(item => {
+        //     console.log("item:", item)
+        //     config.plugins.push(new webpack.DllReferencePlugin({
+        //         context: __dirname,
+        //         manifest: require(path.resolve(__dirname, `/public/dll/${item}-manifest.json`))
+        //     }))
+        // })
+        // config.plugins.push(
+        //     new AddAssetHtmlPlugin({
+        //         // 引用的dll.js文件位置
+        //         filepath: path.resolve(__dirname, './public/dll/js/*.js'),
+        //         // dll 引用路径 对dll静态资源引用的位置
+        //         publicPath: './dll/js/*.js',
+        //         // dll最终输出的目录 打包后具体在dist下的文件位置
+        //         outputPath: './dll/js/*.js',
+        //         includeSourcemap: false
+        //       })
+            // new HTMLWebpackPlugin({
+            //     template: path.resolve(__dirname, './public/index.html'),
+            //     filename: 'entry.html',
+            //     chunks: ['lib_remote','main'],
+            //     chunksSortMode: "manual"
+            // })
             // new CleanWebpackPlugin(),
             // new HtmlWebpackPlugin({
             //     template: './public/index.html',
@@ -146,7 +161,7 @@ module.exports = defineConfig({
             //     //     }
             //     // }
             // })
-        )
+        // )
         // optimization: {
         //     // splitChunks: false
         //     nodeEnv: false,

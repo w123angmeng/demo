@@ -42,6 +42,9 @@ setTimeout(() => {
 }, 10000);
 Vue.prototype.$actions = actions
 Vue.config.productionTip = false
+Vue.prototype.$testFun = function() {
+    console.log("这是mian 全局方法：$testFun")
+}
 // setTimeout(() => {
 //     actions.setGlobalState({global:false})
 // }, 3000);
