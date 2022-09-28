@@ -8,6 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MyPlugin = require('./myPlugin')
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin')
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 // vue-loader在15.*之后的版本都是 vue-loader的使用都是需要伴生 VueLoaderPlugin的,
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // 引入模块联邦
@@ -68,27 +70,32 @@ module.exports = defineConfig({
                 context: __dirname,
                 manifest: require(path.resolve(__dirname, `../main/public/dll/${item}-manifest.json`))
             }))
-            // config.plugins.push(new AddAssetHtmlPlugin({
-            //     // 引用的dll.js文件位置
-            //     filepath: path.resolve(__dirname, `../main/public/dll/js/dll.${item}.js`),
-            //     // dll 引用路径 对dll静态资源引用的位置
-            //     publicPath: './dll/js/',
-            //     // dll最终输出的目录 打包后具体在dist下的文件位置
-            //     outputPath: './dll/js/',
-            //     includeSourcemap: false
-            //   }))
+            config.plugins.push(new AddAssetHtmlPlugin({
+                // 引用的dll.js文件位置
+                filepath: path.resolve(__dirname, `../main/public/dll/js/dll.${item}.js`),
+                // dll 引用路径 对dll静态资源引用的位置
+                publicPath: './dll/js/',
+                // dll最终输出的目录 打包后具体在dist下的文件位置
+                outputPath: './dll/js/',
+                includeSourcemap: false
+            }))
         })
-        config.plugins.push(
-            new AddAssetHtmlPlugin({
-                 // 引用的dll.js文件位置
-                 filepath: path.resolve(__dirname, '../main/public/dll/js/*.js'),
-                 // dll 引用路径 对dll静态资源引用的位置
-                 publicPath: './dll/js/*.js',
-                 // dll最终输出的目录 打包后具体在dist下的文件位置
-                 outputPath: './dll/js/*.js',
-                 includeSourcemap: false
-            })
-        )
+        // config.plugins.push(new HardSourceWebpackPlugin())
+        // config.plugins.push( new HtmlWebpackTagsPlugin({
+        //     scripts: ['../main/public/dll/js/dll.vue.js', '../main/public/dll/js/dll.elementui.js', '../main/public/dll/js/dll.vendor.js'], 
+        //     append: false
+        // }))
+        // config.plugins.push(
+        //     new AddAssetHtmlPlugin({
+        //          // 引用的dll.js文件位置
+        //          filepath: path.resolve(__dirname, '../main/public/dll/js/*.js'),
+        //          // dll 引用路径 对dll静态资源引用的位置
+        //          publicPath: './dll/js/*.js',
+        //          // dll最终输出的目录 打包后具体在dist下的文件位置
+        //          outputPath: './dll/js/*.js',
+        //          includeSourcemap: false
+        //     })
+        // )
     }
     // configureWebpack: {
     //     mode: "development",
