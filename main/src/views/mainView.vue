@@ -1,7 +1,7 @@
 <template>
     <div class="mainViewWrap">
         <!-- <div>患者：{{patientInfo.name}} - {{patientInfo.sex}} - {{patientInfo.age}}</div> -->
-        <HeaderComp></HeaderComp>
+        <HeaderComp />
         <!-- <el-button type="primary" @click="changePatInfo">切换患者信息</el-button> -->
         <el-menu router default-active="/about" class="el-menu-demo" mode="horizontal">
             <!-- <el-menu-item index="/about">主应用页面</el-menu-item> -->
@@ -9,8 +9,9 @@
             <el-menu-item index="/app2/demo1">app2</el-menu-item>
         </el-menu>
          <div class="rw" id="container">
-            <!-- <router-view /> -->
         </div>
+        <!-- <div class="rw" id="container1">
+        </div> -->
 
         <!-- 公共组件 -->
         <!-- <CommonDialog :dialogData="dialogData" @handleClose="handleClose"></CommonDialog> -->
@@ -56,7 +57,9 @@ export default {
     //     },));
   },
   mounted() {
+    console.log("这是mainview mounted====================")
     if (!window.qiankunStarted) {
+        console.log("进来了。。。。。。。。。。。。。")
       window.qiankunStarted = true;
       start();
     }

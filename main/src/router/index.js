@@ -8,13 +8,13 @@ const routes = [{
         path: '/',
         name: 'welcome',
         component: () => import( /* webpackChunkName: "about" */ '../views/mainView.vue'),
-        children:[
-            {
-                path: "/welcome",
-                name: "welcome",
-                redirect: "/welcome", 
-            }
-        ]
+        // children:[
+        //     {
+        //         path: "/welcome",
+        //         name: "welcome",
+        //         redirect: "/welcome", 
+        //     }
+        // ]
     },
     {
         path: '/app1',

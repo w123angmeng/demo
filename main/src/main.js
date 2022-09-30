@@ -27,20 +27,11 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-import { registerMicroApps, initGlobalState} from 'qiankun';
+import { registerMicroApps} from 'qiankun';
 // import { registerMicroApps } from 'qiankun';
 // import './shared/actions'
 // console.log("actions:", actions)
-const initialState = {global: true}
-const actions = initGlobalState(initialState)
-actions.onGlobalStateChange((state, prev) => {
-    // state: 变更后的状态; prev 变更前的状态
-    console.log('父组件观察到', state, prev);
-});
-setTimeout(() => {
-    actions.setGlobalState({ global: false })
-}, 10000);
-Vue.prototype.$actions = actions
+
 Vue.config.productionTip = false
 // setTimeout(() => {
 //     actions.setGlobalState({global:false})
@@ -67,7 +58,16 @@ registerMicroApps([
         props: msg
     }
 ]);
-
+// const initialState = {global: true}
+// const actions = initGlobalState(initialState)
+// actions.onGlobalStateChange((state, prev) => {
+//     // state: 变更后的状态; prev 变更前的状态
+//     console.log('父组件观察到', state, prev);
+// });
+// setTimeout(() => {
+//     actions.setGlobalState({ global: false })
+// }, 10000);
+// Vue.prototype.$actions = actions
 
 
 // 启动 qiankun

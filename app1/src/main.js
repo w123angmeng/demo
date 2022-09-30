@@ -41,13 +41,13 @@ actions.setActions(props)
     mode: 'history',
     routes,
   });
-  Vue.observable(store)
+//   Vue.observable(store)
   instance = new Vue({
     router,
     store,
     render: (h) => h(App),
   }).$mount(container ? container.querySelector('#app1') : '#app1');
-//   store = Vue.observable(store)
+  Vue.observable(store)
 }
 // 独立运行时
 if (!window.__POWERED_BY_QIANKUN__) {
@@ -59,10 +59,11 @@ if (!window.__POWERED_BY_QIANKUN__) {
   }
   export async function mount(props) {
     console.log('[vue] app1 props from main framework', props);
+    console.log("=================[vue] app1 props from main framework")
     props.onGlobalStateChange((state, prev) => {
         // state: 变更后的状态; prev 变更前的状态
         console.log('app1 glonal 子组件：', state, prev);
-    });
+    }, true);
     render(props);
   }
   export async function unmount() {
