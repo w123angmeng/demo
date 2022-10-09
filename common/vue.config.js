@@ -83,12 +83,12 @@ module.exports = defineConfig({
                 './CommonDialog': './src/components/CommonDialog.vue'
             },
             // shared: ['vue']
-            // shared: {
-            //     vue: {
-            //         eager: true,
-            //         singleton: true,
-            //     }
-            // }
+            shared: {
+                vue: {
+                    eager: true,
+                    singleton: true,
+                }
+            }
         })
     ],
     optimization: {

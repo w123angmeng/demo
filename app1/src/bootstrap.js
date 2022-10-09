@@ -38,22 +38,21 @@ if (!window.__POWERED_BY_QIANKUN__) {
   }
   
   export async function bootstrap() {
-    console.log('[vue] vue app bootstraped');
+    console.log(`%c[vue] vue app1 bootstraped`, 'color: green;');
   }
   export async function mount(props) {
-    console.log('[vue] props from main framework', props);
+    console.log(`%c[vue] vue app1 mount`, 'color: green;');
+    // console.log('[vue] props from main framework', props);
     props.onGlobalStateChange((state, prev) => {
         // state: 变更后的状态; prev 变更前的状态
         console.log('子项目监听：', state, prev);
     });
     
     // props.setGlobalState(state);
-    setTimeout(()=> {
-        props.setGlobalState({count: 3});
-    }, 6000)
     render(props);
   }
   export async function unmount() {
+    console.log(`%c[vue] vue app1 unmount`, 'color: green;');
     instance.$destroy();
     instance.$el.innerHTML = '';
     instance = null;

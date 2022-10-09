@@ -38,13 +38,14 @@ if (!window.__POWERED_BY_QIANKUN__) {
   }
   
   export async function bootstrap() {
-    console.log('[vue] vue app bootstraped');
+    console.log(`%c[vue] vue app2 bootstraped`, 'color: green;');
   }
   export async function mount(props) {
-    console.log('[vue] props from main framework', props);
+    console.log(`%c[vue] vue app2 mount`, 'color: green;');
     render(props);
   }
   export async function unmount() {
+    console.log(`%c[vue] vue app2 unmount`, 'color: green;');
     instance.$destroy();
     instance.$el.innerHTML = '';
     instance = null;

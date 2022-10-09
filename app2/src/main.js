@@ -2,9 +2,8 @@
 // const { bootstrap, mount, unmount } = import('./bootstrap')
 // console.log("===bootstrap, mount, unmount:", bootstrap, mount, unmount)
 // eslint-disable-next-line
-import { bootstrap, mount, unmount } from './bootstrap'
-// import bootstrap from './bootstrap';
-// bootstrap();
+// import { bootstrap, mount, unmount } from './bootstrap'
+const { bootstrap, mount, unmount } = await import('./bootstrap')
 export { bootstrap, mount, unmount }
 
 // import './public-path';

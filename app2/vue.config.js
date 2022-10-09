@@ -25,9 +25,9 @@ module.exports = defineConfig({
     configureWebpack: {
         mode: "development",
         devtool: 'source-map',
-        entry: {
-            main: './src/main.js'
-        },
+        // entry: {
+        //     main: './src/main.js'
+        // },
         // cache: {
         //     type: "memory" // filessystem memory
         // },
@@ -94,17 +94,20 @@ module.exports = defineConfig({
                     lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
                 },
                 // shared: ['vue']
-                // shared: {
-                //     vue: {
-                //         eager: true,
-                //         singleton: true,
-                //     }
-                // }
+                shared: {
+                    vue: {
+                        eager: true,
+                        singleton: true,
+                    }
+                }
             })
         ],
         optimization: {
             nodeEnv: false
             // splitChunks: false
         },
+        experiments: {
+            topLevelAwait: true, // 此处为新增配置
+        }
     }
 })

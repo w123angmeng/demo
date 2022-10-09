@@ -33,9 +33,9 @@ module.exports = defineConfig({
             // jsonpFunction: `webpackJsonp_${name}`,
             chunkLoadingGlobal: `webpackJsonp_${name}`,
         },
-        entry: {
-            main: './src/main.js'
-        },
+        // entry: {
+        //     main: './src/main.js'
+        // },
         // cache: {
         //     type: "memory" // filessystem memory
         // },
