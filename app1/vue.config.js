@@ -11,7 +11,7 @@ const MyPlugin = require('./myPlugin')
 // 引入模块联邦
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 module.exports = defineConfig({
-    publicPath: "http://localhost:3001",
+    publicPath: process.env.NODE_ENV === 'development' ? "http://localhost:3001" : 'http://180.76.134.57:3001/',
     transpileDependencies: true,
     devServer: {
         hot: true,
@@ -94,7 +94,7 @@ module.exports = defineConfig({
                 name: 'app1_app',
                 filename: 'remoteEntry.js',
                 remotes: {
-                    lib_remote: `lib_remote@http://localhost:3003/remoteEntry.js`
+                    lib_remote: process.env.NODE_ENV === 'development' ?`lib_remote@http://localhost:3003/remoteEntry.js` : `lib_remote@http://180.76.134.57:3003/remoteEntry.js`
                 },
                 // shared: ['vue']
                 shared: {

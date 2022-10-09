@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { name } = require('./package');
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: "http://localhost:3003",
+  publicPath: process.env.NODE_ENV === 'development' ? "http://localhost:3003" : 'http://180.76.134.57:3003/',
   devServer: {
     hot: true,
     host: "localhost",

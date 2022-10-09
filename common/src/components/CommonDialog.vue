@@ -8,6 +8,7 @@
             append-to-body
         >
             <span>{{ dialogData.content }}</span>
+            <span>加一段提示文字</span>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogData.visible = false">取 消</el-button>
                 <el-button type="primary" @click="dialogData.visible = false"

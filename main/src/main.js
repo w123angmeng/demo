@@ -19,7 +19,8 @@ actions.onGlobalStateChange((state, prev) => {
 registerMicroApps([
     {
         name: 'app1',
-        entry: '//localhost:3001',
+        // entry: '//localhost:3001',
+        entry: "//180.76.134.57:3001/",
         container: '#container',
         activeRule: '/app1',
         props: {
@@ -28,7 +29,8 @@ registerMicroApps([
     },
     {
         name: 'app2',
-        entry: '//localhost:3002',
+        // entry: '//localhost:3002',
+        entry: "//180.76.134.57:3002/",
         container: '#container',
         activeRule: '/app2',
         props: {
